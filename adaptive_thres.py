@@ -1,0 +1,70 @@
+# # Python program to illustrate
+# # simple thresholding type on an image
+	
+# # organizing imports
+# import cv2
+# import numpy as np
+
+# # path to input image is specified and
+# # image is loaded with imread command
+# image1 = cv2.imread('assets/img2.jpg')
+# image1 = cv2.resize(image1,(400,400))
+
+# # cv2.cvtColor is applied over the
+# # image input with applied parameters
+# # to convert the image in grayscale
+# img = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+
+# # applying different thresholding
+# # techniques on the input image
+# # all pixels value above 120 will
+# # be set to 255
+# ret, thresh1 = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY)
+# ret, thresh2 = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY_INV)
+# ret, thresh3 = cv2.threshold(img, 120, 255, cv2.THRESH_TRUNC)
+# ret, thresh4 = cv2.threshold(img, 120, 255, cv2.THRESH_TOZERO)
+# ret, thresh5 = cv2.threshold(img, 120, 255, cv2.THRESH_TOZERO_INV)
+
+# # the window showing output images
+# # with the corresponding thresholding
+# # techniques applied to the input images
+# cv2.imshow('Binary Threshold', thresh1)
+# cv2.imshow('Binary Threshold Inverted', thresh2)
+# cv2.imshow('Truncated Threshold', thresh3)
+# cv2.imshow('Set to 0', thresh4)
+# cv2.imshow('Set to 0 Inverted', thresh5)
+	
+# # De-allocate any associated memory usage
+# if cv2.waitKey(0) & 0xff == 27:
+# 	cv2.destroyAllWindows()
+
+
+
+
+
+
+
+
+
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('assets/sudoku.png',0)
+
+ret,thresh1 = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
+thresh2 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,
+                                    cv2.THRESH_BINARY,11,2)
+thresh3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                    cv2.THRESH_BINARY,11,2)
+
+plt.subplot(221), plt.imshow(img,'gray')
+plt.title('Original Image')
+plt.subplot(222), plt.imshow(thresh1, 'gray')
+plt.title('THRESH_BINARY')  
+plt.subplot(223), plt.imshow(thresh2, 'gray')
+plt.title('ADAPTIVE_THRESH_MEAN_C')
+plt.subplot(224), plt.imshow(thresh3, 'gray')
+plt.title('ADAPTIVE_THRESH_GAUSSIAN_C')
+
+plt.show()
